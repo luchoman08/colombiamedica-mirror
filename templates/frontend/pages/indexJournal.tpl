@@ -21,13 +21,14 @@
 <div class="page_index_journal">
 
 	{call_hook name="Templates::Index::journal"}
-
-	{if $homepageImage}
-		<div class="homepage_image">
-			<img src="{$publicFilesDir}/{$homepageImage.uploadName|escape:"url"}" alt="{$homepageImageAltText|escape}">
-		</div>
-	{/if}
-
+	
+		{if $homepageImage}
+			<div class="homepage_image">
+				<center>
+					<img src="{$publicFilesDir}/{$homepageImage.uploadName|escape:"url"}" alt="{$homepageImageAltText|escape}" style='max-width:200px;'>
+				</center>				
+			</div>
+		{/if}
 	{* Announcements *}
 	{if $numAnnouncementsHomepage && $announcements|@count}
 		<div class="cmp_announcements highlight_first">

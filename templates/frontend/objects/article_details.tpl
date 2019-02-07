@@ -79,6 +79,7 @@
 		<div class="main_entry">
 
 			{if $article->getAuthors()}
+				
 				<ul class="item authors">
 					{foreach from=$article->getAuthors() item=author}
 						<li>
