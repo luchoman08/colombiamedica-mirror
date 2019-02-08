@@ -20,69 +20,75 @@
 	{assign var="showAuthor" value=true}
 {/if}
 
-<div class="obj_article_summary">
-	{if $article->getLocalizedCoverImage()}
-		<div class="cover">
-			<a {if $journal}href="{url journal=$journal->getPath() page="article" op="view" path=$articlePath}"{else}href="{url page="article" op="view" path=$articlePath}"{/if} class="file">
-				<img src="{$article->getLocalizedCoverImageUrl()|escape}"{if $article->getLocalizedCoverImageAltText() != ''} alt="{$article->getLocalizedCoverImageAltText()|escape}"{else} alt="{translate key="article.coverPage.altText"}"{/if}>
+<div class="panel panel-default">
+  <div class="panel-body btn btn-primary">
+
+	<div class="obj_article_summary">
+		{if $article->getLocalizedCoverImage()}
+			<div class="cover">
+				<a {if $journal}href="{url journal=$journal->getPath() page="article" op="view" path=$articlePath}"{else}href="{url page="article" op="view" path=$articlePath}"{/if} class="file">
+					<img src="{$article->getLocalizedCoverImageUrl()|escape}"{if $article->getLocalizedCoverImageAltText() != ''} alt="{$article->getLocalizedCoverImageAltText()|escape}"{else} alt="{translate key="article.coverPage.altText"}"{/if}>
+				</a>
+			</div>
+		{/if}
+
+		<div class="title">
+			<a {if $journal}href="{url journal=$journal->getPath() page="article" op="view" path=$articlePath}"{else}href="{url page="article" op="view" path=$articlePath}"{/if}>
+				{$article->getLocalizedTitle()|strip_unsafe_html}
+				{if $article->getLocalizedSubtitle()}
+					<span class="subtitle">
+						{$article->getLocalizedSubtitle()|escape}
+					</span>
+				{/if}
 			</a>
 		</div>
-	{/if}
 
-	<div class="title">
-		<a {if $journal}href="{url journal=$journal->getPath() page="article" op="view" path=$articlePath}"{else}href="{url page="article" op="view" path=$articlePath}"{/if}>
-			{$article->getLocalizedTitle()|strip_unsafe_html}
-			{if $article->getLocalizedSubtitle()}
-				<span class="subtitle">
-					{$article->getLocalizedSubtitle()|escape}
-				</span>
+		{if $showAuthor || $article->getPages() || ($article->getDatePublished() && $showDatePublished)}
+		<div class="meta">
+			{if $showAuthor}
+			<div class="authors">
+				{$article->getAuthorString()}
+			</div>
 			{/if}
-		</a>
-	</div>
 
-	{if $showAuthor || $article->getPages() || ($article->getDatePublished() && $showDatePublished)}
-	<div class="meta">
-		{if $showAuthor}
-		<div class="authors">
-			{$article->getAuthorString()}
+			{* Page numbers for this article *}
+			{if $article->getPages()}
+				<div class="pages">
+					{$article->getPages()|escape}
+				</div>
+			{/if}
+
+			{if $showDatePublished && $article->getDatePublished()}
+				<div class="published">
+					{$article->getDatePublished()|date_format:$dateFormatShort}
+				</div>
+			{/if}
+
 		</div>
 		{/if}
 
-		{* Page numbers for this article *}
-		{if $article->getPages()}
-			<div class="pages">
-				{$article->getPages()|escape}
-			</div>
+		{if !$hideGalleys}
+			<ul class="galleys_links">
+				{foreach from=$article->getGalleys() item=galley}
+					{if $primaryGenreIds}
+						{assign var="file" value=$galley->getFile()}
+						{if !$galley->getRemoteUrl() && !($file && in_array($file->getGenreId(), $primaryGenreIds))}
+							{php}continue;{/php}
+						{/if}
+					{/if}
+					<li>
+						{assign var="hasArticleAccess" value=$hasAccess}
+						{if ($article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN)}
+							{assign var="hasArticleAccess" value=1}
+						{/if}
+						{include file="frontend/objects/galley_link.tpl" parent=$article hasAccess=$hasArticleAccess purchaseFee=$currentJournal->getSetting('purchaseArticleFee') purchaseCurrency=$currentJournal->getSetting('currency')}
+					</li>
+				{/foreach}
+			</ul>
 		{/if}
 
-		{if $showDatePublished && $article->getDatePublished()}
-			<div class="published">
-				{$article->getDatePublished()|date_format:$dateFormatShort}
-			</div>
-		{/if}
+		{call_hook name="Templates::Issue::Issue::Article"}
+	</div>
 
 	</div>
-	{/if}
-
-	{if !$hideGalleys}
-		<ul class="galleys_links">
-			{foreach from=$article->getGalleys() item=galley}
-				{if $primaryGenreIds}
-					{assign var="file" value=$galley->getFile()}
-					{if !$galley->getRemoteUrl() && !($file && in_array($file->getGenreId(), $primaryGenreIds))}
-						{php}continue;{/php}
-					{/if}
-				{/if}
-				<li>
-					{assign var="hasArticleAccess" value=$hasAccess}
-					{if ($article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN)}
-						{assign var="hasArticleAccess" value=1}
-					{/if}
-					{include file="frontend/objects/galley_link.tpl" parent=$article hasAccess=$hasArticleAccess purchaseFee=$currentJournal->getSetting('purchaseArticleFee') purchaseCurrency=$currentJournal->getSetting('currency')}
-				</li>
-			{/foreach}
-		</ul>
-	{/if}
-
-	{call_hook name="Templates::Issue::Issue::Article"}
 </div>
