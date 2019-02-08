@@ -66,9 +66,10 @@
 		{* Published date *}
 		{if $issue->getDatePublished()}
 			<div class="published">
-				<span class="label">
-					{translate key="submissions.published"}:
+				<span class="label-bs label-bs-default">
+					{translate key="submissions.published"} 
 				</span>
+				&nbsp;&nbsp;
 				<span class="value">
 					{$issue->getDatePublished()|date_format:$dateFormatShort}
 				</span>
@@ -95,12 +96,12 @@
 	{* Articles *}
 	<div class="sections">
 	{foreach name=sections from=$publishedArticles item=section}
-		<div class="section">
+		<blockquote class='amx-div-b-gris'>
 		{if $section.articles}
-			{if $section.title}
-				<h2>
-					{$section.title|escape}
-				</h2>
+			{if $section.title}				
+					<h2 class='amx-gris'>
+						{$section.title|escape}
+					</h2>
 			{/if}
 			<ul class="cmp_article_list articles">
 				{foreach from=$section.articles item=article}
@@ -110,7 +111,7 @@
 				{/foreach}
 			</ul>
 		{/if}
-		</div>
+		</blockquote>
 	{/foreach}
 	</div><!-- .sections -->
 </div>

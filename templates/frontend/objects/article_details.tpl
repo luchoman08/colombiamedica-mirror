@@ -64,7 +64,9 @@
  *   included with published articles.
  * @uses $ccLicenseBadge string An image and text with details about the license
  *}
+
 <article class="obj_article_details">
+
 	<h1 class="page_title">
 		{$article->getLocalizedTitle()|escape}
 	</h1>
@@ -75,9 +77,120 @@
 		</h2>
 	{/if}
 
+	{* assign Author biographies *}
+			{assign var="hasBiographies" value=0}
+			{foreach from=$article->getAuthors() item=author}
+				{if $author->getLocalizedBiography()}
+					{assign var="hasBiographies" value=$hasBiographies+1}
+				{/if}
+			{/foreach}
+
 	<div class="row">
 		<div class="main_entry">
 
+		{* pruebas *}
+		
+    
+  
+
+		{* BARRA DE NAVEGACION*}
+
+						<ul id="myTabs" class="nav nav-tabs" role="tablist">
+							{if $article->getLocalizedAbstract()}
+								
+									<li role="presentation" class="active"><a href="#abstract" id="abstract-tab" role="tab" data-toggle="tab" aria-controls="abstract" aria-expanded="true">
+										<span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
+										<strong>{translate key="article.abstract"}</strong>
+									</a></li>
+								
+							{/if}
+							{if !empty($keywords[$currentLocale])}
+							
+									<li role="presentation" >
+										<a href="#subject"  role="tab" id="subject-tab" data-toggle="tab" aria-controls="subject">
+											<span class="glyphicon glyphicon-tags" aria-hidden="true"></span> 
+											<strong>{capture assign=translatedKeywords}{translate key="article.subject"}{/capture}
+											{translate key="semicolon" label=$translatedKeywords}</strong>
+										</a>
+									</li>
+							
+							{/if}
+							{if $hasBiographies}
+									<li role="presentation" >
+										<a href="#authorBiographies"  role="tab" id="authorBiographies-tab" data-toggle="tab" aria-controls="authorBiographies">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										<strong> 
+										{if $hasBiographies > 1}
+											{translate key="submission.authorBiographies"}
+										{else}
+											{translate key="submission.authorBiography"}
+										{/if}
+										</strong>
+										</a>
+									</li>
+							{/if}
+							{if $parsedCitations->getCount() || $article->getCitations()}
+								
+									<li role="presentation" >
+										<a href="#citations"  role="tab" id="citations-tab" data-toggle="tab" aria-controls="citations">
+										<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> 
+										<strong>{translate key="submission.citations"}</strong>
+										</a>
+									</li>
+							{/if}
+						</ul>
+					
+
+			{* DOI (requires plugin) *}
+			{foreach from=$pubIdPlugins item=pubIdPlugin}
+				{if $pubIdPlugin->getPubIdType() != 'doi'}
+					{php}continue;{/php}
+				{/if}
+				{assign var=pubId value=$article->getStoredPubId($pubIdPlugin->getPubIdType())}
+				{if $pubId}
+					{assign var="doiUrl" value=$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}
+					<div class="item doi">
+						<label>
+							{capture assign=translatedDOI}{translate key="plugins.pubIds.doi.readerDisplayName"}{/capture}
+							{translate key="semicolon" label=$translatedDOI}
+						<label>
+						<span class="value">
+							<a href="{$doiUrl}">
+								{$doiUrl}
+							</a>
+						</span>
+					</div>
+				{/if}
+			{/foreach}
+
+	<div id="myTabContent" class="tab-content">
+
+			{* Abstract *}
+			{if $article->getLocalizedAbstract()}
+				<div id="abstract" role="tabpanel" class="amx-div-tabs tab-pane fade in active" aria-labelledby="abstract-tab">
+					<h3 class="label">{translate key="article.abstract"}</h3>
+					{$article->getLocalizedAbstract()|strip_unsafe_html}
+				</div>
+			{/if}
+
+			{* Keywords *}
+			{if !empty($keywords[$currentLocale])}
+			<div id="subject"  role="tabpanel" class="amx-div-tabs tab-pane fade" aria-labelledby="subject-tab">
+				<h3>
+					{capture assign=translatedKeywords}{translate key="article.subject"}{/capture}
+					{translate key="semicolon" label=$translatedKeywords}
+				</h3>
+				<span class="value">
+					{foreach from=$keywords item=keyword}
+						{foreach name=keywords from=$keyword item=keywordItem}
+							{$keywordItem|escape}{if !$smarty.foreach.keywords.last}, {/if}
+						{/foreach}
+					{/foreach}
+				</span>
+			</div>
+			{/if}
+
+		{* Authors 	
 			{if $article->getAuthors()}
 				
 				<ul class="item authors">
@@ -103,65 +216,13 @@
 					{/foreach}
 				</ul>
 			{/if}
-
-			{* DOI (requires plugin) *}
-			{foreach from=$pubIdPlugins item=pubIdPlugin}
-				{if $pubIdPlugin->getPubIdType() != 'doi'}
-					{php}continue;{/php}
-				{/if}
-				{assign var=pubId value=$article->getStoredPubId($pubIdPlugin->getPubIdType())}
-				{if $pubId}
-					{assign var="doiUrl" value=$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}
-					<div class="item doi">
-						<span class="label">
-							{capture assign=translatedDOI}{translate key="plugins.pubIds.doi.readerDisplayName"}{/capture}
-							{translate key="semicolon" label=$translatedDOI}
-						</span>
-						<span class="value">
-							<a href="{$doiUrl}">
-								{$doiUrl}
-							</a>
-						</span>
-					</div>
-				{/if}
-			{/foreach}
-
-			{* Keywords *}
-			{if !empty($keywords[$currentLocale])}
-			<div class="item keywords">
-				<span class="label">
-					{capture assign=translatedKeywords}{translate key="article.subject"}{/capture}
-					{translate key="semicolon" label=$translatedKeywords}
-				</span>
-				<span class="value">
-					{foreach from=$keywords item=keyword}
-						{foreach name=keywords from=$keyword item=keywordItem}
-							{$keywordItem|escape}{if !$smarty.foreach.keywords.last}, {/if}
-						{/foreach}
-					{/foreach}
-				</span>
-			</div>
-			{/if}
-
-			{* Abstract *}
-			{if $article->getLocalizedAbstract()}
-				<div class="item abstract">
-					<h3 class="label">{translate key="article.abstract"}</h3>
-					{$article->getLocalizedAbstract()|strip_unsafe_html}
-				</div>
-			{/if}
-
+		*}
 			{call_hook name="Templates::Article::Main"}
 
-			{* Author biographies *}
-			{assign var="hasBiographies" value=0}
-			{foreach from=$article->getAuthors() item=author}
-				{if $author->getLocalizedBiography()}
-					{assign var="hasBiographies" value=$hasBiographies+1}
-				{/if}
-			{/foreach}
+			{* Author biographies / la asignacion de la variable esta al inicio de la pag*}
+			
 			{if $hasBiographies}
-				<div class="item author_bios">
+				<div id="authorBiographies" role="tabpanel" class="amx-div-tabs tab-pane fade" aria-labelledby="authorBiographies-tab">
 					<h3 class="label">
 						{if $hasBiographies > 1}
 							{translate key="submission.authorBiographies"}
@@ -172,15 +233,15 @@
 					{foreach from=$article->getAuthors() item=author}
 						{if $author->getLocalizedBiography()}
 							<div class="sub_item">
-								<div class="label">
+								<br>
 									{if $author->getLocalizedAffiliation()}
-										{capture assign="authorName"}{$author->getFullName()|escape}{/capture}
+										{capture assign="authorName"}<label>{$author->getFullName()|escape}</label>{/capture}										
 										{capture assign="authorAffiliation"}<span class="affiliation">{$author->getLocalizedAffiliation()|escape}</span>{/capture}
 										{translate key="submission.authorWithAffiliation" name=$authorName affiliation=$authorAffiliation}
 									{else}
-										{$author->getFullName()|escape}
+										<label>{$author->getFullName()|escape}</label>
 									{/if}
-								</div>
+								
 								<div class="value">
 									{$author->getLocalizedBiography()|strip_unsafe_html}
 								</div>
@@ -192,7 +253,7 @@
 
 			{* References *}
 			{if $parsedCitations->getCount() || $article->getCitations()}
-				<div class="item references">
+				<div id="citations" role="tabpanel" class="amx-div-tabs tab-pane fade" aria-labelledby="citations-tab">
 					<h3 class="label">
 						{translate key="submission.citations"}
 					</h3>
@@ -207,8 +268,9 @@
 					</div>
 				</div>
 			{/if}
-
+		</div>
 		</div><!-- .main_entry -->
+	
 
 		<div class="entry_details">
 
@@ -392,3 +454,4 @@
 	</div><!-- .row -->
 
 </article>
+

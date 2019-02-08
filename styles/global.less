@@ -1,9 +1,9 @@
 
 a {
-	color: @rojoUnivalle
+	color: @rojoUnivalle !important;
 }
 
-.pdf {
+.galleys_links .pdf, .galleys_links .file, .galleys_links .xml {
     color: @rojoUnivalle;
     font-family: Verdana;
     padding-bottom: 2px;
@@ -11,14 +11,14 @@ a {
     padding-left: 5px;
     padding-right: 5px;
     background-color: rgb(255, 255, 255, 0);
-    border: solid @rojoUnivalle 1px;
+    border: solid @rojoUnivalle 1px !important;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
  }
  
- .pdf:hover {
+ .galleys_links .pdf:hover, .galleys_links .pdf:focus, .galleys_links .file:hover, .galleys_links .file:focus, .galleys_links .xml:hover, .galleys_links .xml:focus {
     background: @rojoUnivalle;
     text-decoration: none;
-    color: #ffffff;
+    color: #ffffff !important;
  }

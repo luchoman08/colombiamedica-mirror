@@ -21,7 +21,7 @@
 {/if}
 
 <div class="panel panel-default">
-  <div class="panel-body btn btn-primary">
+  <div class="panel-body">
 
 	<div class="obj_article_summary">
 		{if $article->getLocalizedCoverImage()}

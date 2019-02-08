@@ -24,7 +24,7 @@ class UnivalleThemePlugin extends ThemePlugin {
 
 		$this->setParent('defaultthemeplugin');
 		$this->addStyle('child-stylesheet', 'styles/index.less');
-		$this->addStyle('child-stylesheet-boot', 'bootstrap/css/boostrap.min.css');
+		$this->addStyle('child-stylesheet-boot', 'bootstrap/css/bootstrap.min.css');
 
 		
 		// Load Bootsrap's dropdown

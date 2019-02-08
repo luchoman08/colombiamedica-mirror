@@ -248,7 +248,7 @@ th {
   .dropup > .btn > .caret {
     border-top-color: #000 !important;
   }
-  .label {
+  .label-bs {
     border: 1px solid #000;
   }
   .table {
@@ -4918,7 +4918,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   cursor: not-allowed;
   background-color: #fff;
 }
-.label {
+.label-bs {
   display: inline;
   padding: 0.2em 0.6em 0.3em;
   font-size: 75%;
@@ -4930,59 +4930,59 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   vertical-align: baseline;
   border-radius: 0.25em;
 }
-a.label:hover,
-a.label:focus {
+a.label-bs:hover,
+a.label-bs:focus {
   color: #fff;
   text-decoration: none;
   cursor: pointer;
 }
-.label:empty {
+.label-bs:empty {
   display: none;
 }
-.btn .label {
+.btn .label-bs {
   position: relative;
   top: -1px;
 }
-.label-default {
+.label-bs-default {
   background-color: #777777;
 }
-.label-default[href]:hover,
-.label-default[href]:focus {
+.label-bs-default[href]:hover,
+.label-bs-default[href]:focus {
   background-color: #5e5e5e;
 }
-.label-primary {
+.label-bs-primary {
   background-color: #337ab7;
 }
-.label-primary[href]:hover,
-.label-primary[href]:focus {
+.label-bs-primary[href]:hover,
+.label-bs-primary[href]:focus {
   background-color: #286090;
 }
-.label-success {
+.label-bs-success {
   background-color: #5cb85c;
 }
-.label-success[href]:hover,
-.label-success[href]:focus {
+.label-bs-success[href]:hover,
+.label-bs-success[href]:focus {
   background-color: #449d44;
 }
-.label-info {
+.label-bs-info {
   background-color: #5bc0de;
 }
-.label-info[href]:hover,
-.label-info[href]:focus {
+.label-bs-info[href]:hover,
+.label-bs-info[href]:focus {
   background-color: #31b0d5;
 }
-.label-warning {
+.label-bs-warning {
   background-color: #f0ad4e;
 }
-.label-warning[href]:hover,
-.label-warning[href]:focus {
+.label-bs-warning[href]:hover,
+.label-bs-warning[href]:focus {
   background-color: #ec971f;
 }
-.label-danger {
+.label-bs-danger {
   background-color: #d9534f;
 }
-.label-danger[href]:hover,
-.label-danger[href]:focus {
+.label-bs-danger[href]:hover,
+.label-bs-danger[href]:focus {
   background-color: #c9302c;
 }
 .badge {
