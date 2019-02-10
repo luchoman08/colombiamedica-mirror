@@ -1,4 +1,4 @@
-Configuracion de plantilla univalle dentro de la revista
+Configuracion de plantilla univalle dentro de la revista  
 ========
 
 ## Estos archivos van dentro de:
