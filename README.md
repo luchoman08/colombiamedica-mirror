@@ -12,5 +12,5 @@ Configuracion de plantilla univalle dentro de la revista
 
 ## Para cambiar el bloque de lenguaje:
 
-    - copiar el archivo *plugins\themes\univalle\templates\frontend\blocks\block.tpl* , pegar y reemplazar en *plugins\themes\univalle\templates\frontend\blocks\block.tpl*
+    - copiar el archivo *plugins\themes\univalle\templates\frontend\blocks\block.tpl* , pegar y reemplazar en *\plugins\blocks\languageToggle\*
 
