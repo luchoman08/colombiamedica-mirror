@@ -7,7 +7,7 @@ Configuracion e instalación de el tema Univalle para la revista OJS colombiamed
 
 #### Via GIT
 
-Clone el archivo dentro de la carpeta plugins/themes/ con el nombre <<univalle>> de la siguiente manera:
+Clone el archivo dentro de la carpeta plugins/themes/ con el nombre <univalle> de la siguiente manera:
 
 ``` git clone https://github.com/andresmv94/colombiamedica univalle ```
 Luego de los permisos correspondientes
