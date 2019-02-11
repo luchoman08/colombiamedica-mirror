@@ -10,7 +10,3 @@ Configuracion de plantilla univalle dentro de la revista
     - ir a *plugins\themes\univalle\styles\variables.less* : variable @rutaPublica: configurando la ruta de la carpeta publica del sitio
     - pegar la imagen *plugins\themes\univalle\images\fondo_cortado3.png* en esa carpeta publica agregada en la variable @rutaPublica.
 
-## Para cambiar el bloque de lenguaje:
-
-    - copiar el archivo *plugins\themes\univalle\templates\frontend\blocks\block.tpl* , pegar y reemplazar en *\plugins\blocks\languageToggle\*
-
