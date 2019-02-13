@@ -1,16 +1,35 @@
-Configuracion de plantilla univalle dentro de la revista
+Configuracion e instalación de el tema Univalle para la revista OJS colombiamedica  
 ========
 
-## Estos archivos van dentro de:
+## Instalación de el tema
 
-    - *plugins/themes/colombiamedica* (cambiar "colombiamedica" por "univalle"), quedando *\plugins\themes\univalle*
+### OJS 3.x
 
-## La imagen de fondo se debe configurar:
+#### Via GIT
 
-    - ir a *plugins\themes\univalle\styles\variables.less* : variable @rutaPublica: configurando la ruta de la carpeta publica del sitio
-    - pegar la imagen *plugins\themes\univalle\images\fondo_cortado3.png* en esa carpeta publica agregada en la variable @rutaPublica.
+Clone el archivo dentro de la carpeta plugins/themes/ con el nombre <<univalle>> de la siguiente manera:
 
-## Para cambiar el bloque de lenguaje:
+``` git clone https://github.com/andresmv94/colombiamedica univalle ```
+Luego de los permisos correspondientes
 
-    - copiar el archivo *plugins\themes\univalle\templates\frontend\blocks\block.tpl* , pegar y reemplazar en *\plugins\blocks\languageToggle\*
+```
+APACHE_USER=$(ps -ef | egrep '(httpd|apache2|apache)' | grep -v `whoami` | grep -v root | head -n1 | awk '{print $1}')
+APACHE_GROUP=$APACHE_USER
+chown -R $APACHE_USER:$APACHE_GROUP univalle
+```
+
+#### Descargando los archivos manualmente
+
+Descargue el archivo de el repositorio, muevalo a la carpeta plugins/themes y luego ejecute los siguientes comandos (debe tener instalado unzip)
+
+
+```
+APACHE_USER=$(ps -ef | egrep '(httpd|apache2|apache)' | grep -v `whoami` | grep -v root | head -n1 | awk '{print $1}')
+APACHE_GROUP=$APACHE_USER
+unzip colombiamedica-master.zip
+mv colombiamedica univalle
+chown -R $APACHE_USER:$APACHE_GROUP univalle
+``` 
+
+
 
