@@ -111,6 +111,7 @@
 				{/foreach}
 			</ul>
 		{/if}
+		
 		</blockquote>
 	{/foreach}
 	</div><!-- .sections -->
