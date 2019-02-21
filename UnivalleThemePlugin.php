@@ -21,9 +21,13 @@ class UnivalleThemePlugin extends ThemePlugin {
 	 * @return null
 	 */
 	public function init() {
-
+		$base_url = Config::getVar('general', 'base_url');
+		$lessVariables = ["@theme_name: 'univalle';", "@base_url: '$base_url';"];
 		$this->setParent('defaultthemeplugin');
-		$this->addStyle('child-stylesheet', 'styles/index.less');
+		$this->addStyle(
+			'child-stylesheet',
+			'styles/index.less',
+			array('addLessVariables' => join($lessVariables)));	
 		$this->addStyle('child-stylesheet-boot', 'bootstrap/css/bootstrap.min.css');
 
 		
@@ -75,4 +79,3 @@ class UnivalleThemePlugin extends ThemePlugin {
 }
 
 ?>
-
