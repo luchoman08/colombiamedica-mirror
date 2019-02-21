@@ -37,11 +37,22 @@
 {if $enableLanguageToggle}
 <div class="fixed-lng">
 	
-	<div class="btn-group" role="group" aria-label="...">
+	<div class="btn-group hidden-xs hidden-sm" role="group" aria-label="...">
 		
 			{foreach from=$languageToggleLocales item=localeName key=localeKey}
 				
 					<a href="{url router=$smarty.const.ROUTE_PAGE page="user" op="setLocale" path=$localeKey source=$smarty.server.REQUEST_URI}" type="button" class="btn dark-a-btn locale_{$localeKey|escape}{if $localeKey == $currentLocale} current{/if}">
+						{$localeName}
+					</a>
+				
+			{/foreach}
+		
+	</div>
+	<div class="btn-group btn-xs hidden-lg hidden-md" role="group" aria-label="...">
+		
+			{foreach from=$languageToggleLocales item=localeName key=localeKey}
+				
+					<a href="{url router=$smarty.const.ROUTE_PAGE page="user" op="setLocale" path=$localeKey source=$smarty.server.REQUEST_URI}" type="button" class="btn btn-xs dark-a-btn locale_{$localeKey|escape}{if $localeKey == $currentLocale} current{/if}">
 						{$localeName}
 					</a>
 				

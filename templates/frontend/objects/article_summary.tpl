@@ -87,6 +87,18 @@
 			</ul>
 		{/if}
 
+
+					<div class='pull-right meta'>
+						<font color='#DA251D'><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> | </font>
+								<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {$article->getViews()} |
+								{if $galleys}
+									{foreach from=$galleys item=galley name=galleyList}
+										<span class="glyphicon glyphicon-download" aria-hidden="true"></span> {$galley->getGalleyLabel()} - {$galley->getViews()} | 
+									{/foreach}
+								{/if}
+					</div>
+					
+
 		{call_hook name="Templates::Issue::Issue::Article"}
 	</div>
 
