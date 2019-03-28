@@ -320,9 +320,21 @@
 					</div>
 					<div class="value">
 						{$article->getDatePublished()|date_format:$dateFormatShort}
-					</div>
+					</div>					
 				</div>
 			{/if}
+
+			{* COUNTER *}
+					<div class="item">
+								<font color='#DA251D'><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> | </font>
+								<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {$article->getViews()} |
+								{if $galleys}
+									{foreach from=$galleys item=galley name=galleyList}
+										<span class="glyphicon glyphicon-download" aria-hidden="true"></span> {$galley->getGalleyLabel()} - {$galley->getViews()} | 
+									{/foreach}
+								{/if}
+					</div>
+					
 
 			{* How to cite *}
 			{if $citation}
